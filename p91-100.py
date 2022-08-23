@@ -1,7 +1,34 @@
 from itertools import combinations, product
 from time import time
+from typing import Optional, List
 
 import numpy as np
+from tqdm import tqdm
+
+
+def p92():
+    biggest_square_sum = (9**2) * 7
+    solutions: List[Optional[bool]] = [None] * (biggest_square_sum + 1)
+    solutions[1] = False
+    solutions[89] = True
+
+    for x in range(1, biggest_square_sum + 1):
+        numbers_chain = []
+        while solutions[x] is None:
+            numbers_chain.append(x)
+            x = sum(int(x)**2 for x in str(x))
+        for number in numbers_chain:
+            solutions[number] = solutions[x]
+
+    count89 = 0
+    digits_sums_under_1000 = [sum(int(x)**2 for x in str(x)) for x in range(1000)]
+    for x in tqdm(range(10 ** 4)):
+        sum_4 = sum(int(x) ** 2 for x in str(x))
+        for i in range(1000):
+            if solutions[sum_4 + digits_sums_under_1000[i]]:
+                count89 += 1
+
+    return count89
 
 
 def p97():
@@ -21,7 +48,7 @@ def p99(path='Data/p099_base_exp.txt'):
 
 def timed_run():
     start = time()
-    print(f"Result: {p97()}")
+    print(f"Result: {p92()}")
     print(f"The run took {time() - start:0.2f}s")
 
 
