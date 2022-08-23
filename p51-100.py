@@ -10,7 +10,6 @@ from string import ascii_lowercase
 from tqdm import tqdm
 
 
-
 def p51():
     # indexes = where the replicated digits will be.
     # result = False if None,
@@ -185,43 +184,50 @@ def p60_find_5primes(low, high):
                             res.add([p1,p2,p3,p4,p5])
     return res
 
-def p60():
-    i = 0
-    while True:
-        print(f'{i} - {i+99}:')
-        res = p60_find_5primes(i, i+100)
-        if res:
-            min_sum, min = sum(res[0]), res[0]
-            for p in res[1:]:
-                if sum(p) < min_sum:
-                    min_sum, min = sum(p), p
-            return min
-        i += 100
+# def p60():
+#     i = 0
+#     while True:
+#         print(f'{i} - {i+99}:')
+#         res = p60_find_5primes(i, i+100)
+#         if res:
+#             min_sum, min = sum(res[0]), res[0]
+#             for p in res[1:]:
+#                 if sum(p) < min_sum:
+#                     min_sum, min = sum(p), p
+#             return min
+#         i += 100
+#
+#     sums = 1
+#     while True:
+#         print('curr sums:',sums)
+#         for primesk in (primes1, primes2):
+#             for p1 in [3] + primesk:
+#                 if p1 > sums: break
+#                 for p2 in primesk:
+#                     if p1>=p2 or p1+p2 > sums: break
+#                     for p3 in primesk:
+#                         if p2>=p3 or p1+p2+p3 > sums: break
+#                         for p4 in primesk:
+#                             p5 = sums-(p1+p2+p3+p4)
+#                             if p4>=p5 or p5 not in primesk: break
+#                             if all(p != q or int(str(p)+str(q)) in primes_set for p,q in
+#                                    product((p1,p2,p3,p4,p5),repeat=2)):
+#                                 return sums
+#         sums += 2
+#
+#
+#     # or 3 and four x=1(mod 3) or four x=2(mod 3), or all x=1(mod 3), or all x=2(mod 3)
 
 
 
+def p97():
+    MOD = 10**10
 
+    res = 1
+    for _ in range(783045):
+        res = (res << 10) % MOD
 
-    sums = 1
-    while True:
-        print('curr sums:',sums)
-        for primesk in (primes1, primes2):
-            for p1 in [3] + primesk:
-                if p1 > sums: break
-                for p2 in primesk:
-                    if p1>=p2 or p1+p2 > sums: break
-                    for p3 in primesk:
-                        if p2>=p3 or p1+p2+p3 > sums: break
-                        for p4 in primesk:
-                            p5 = sums-(p1+p2+p3+p4)
-                            if p4>=p5 or p5 not in primesk: break
-                            if all(p != q or int(str(p)+str(q)) in primes_set for p,q in product((p1,p2,p3,p4,p5),repeat=2)):
-                                return sums
-        sums += 2
-
-
-    # or 3 and four x=1(mod 3) or four x=2(mod 3), or all x=1(mod 3), or all x=2(mod 3)
-
+    return (28433 * (1 << 7) * res + 1) % MOD
 
 
 def p99(path='Data/p099_base_exp.txt'):
@@ -229,4 +235,5 @@ def p99(path='Data/p099_base_exp.txt'):
     return np.argmax([np.log(a) * b for a, b in nums]) + 1
 
 
-print(p60())
+if __name__ == '__main__':
+    print(p97())
