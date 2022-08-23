@@ -1,4 +1,5 @@
 from functools import reduce
+from math import sqrt
 from operator import mul
 
 
@@ -11,6 +12,27 @@ def is_prime(n):
         if n % i == 0 or n % (i + 2) == 0:
             return False
     return True
+
+
+def list_is_prime(n, primes_too=False):
+    if n <= 0:
+        return [] if n else [False]
+
+    primes, bool_primes = [2, 3], [False] * (n + 1)
+    for y in range(5, n + 1, 6):
+        for x in [y, y + 2] if y + 2 <= n else [y]:
+            square = int(sqrt(x))
+            for p in primes:
+                if p > square:
+                    primes += [x]
+                    bool_primes[x] = True
+                    break
+                if x % p == 0:
+                    break
+
+    if primes_too:
+        return bool_primes, primes
+    return bool_primes
 
 
 def choose(n, k):
