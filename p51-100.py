@@ -1,8 +1,11 @@
+# This is python 3
+
+
 import numpy as np
 import math
 import primesieve as ps
 from itertools import combinations, product
-from utils import is_prime, choose
+from math_utils import is_prime, choose
 from string import ascii_lowercase
 from tqdm import tqdm
 

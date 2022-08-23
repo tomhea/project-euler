@@ -1,3 +1,6 @@
+# This is python 2
+
+
 from math import *
 from time import time
 
